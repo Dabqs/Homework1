@@ -13,12 +13,12 @@ namespace Homework1
             int intervalExtreme = 999999999;
         beginning:
             Console.Clear();
-            Console.Write("Įveskite sveikąjį skaičių: ");
+            Console.Write("Įveskite sveikąjį integer skaičių: ");
             string input = Console.ReadLine();
 
             if (!IsInteger(input))
             {
-                Console.WriteLine(input + " nėra sveikasis skaičius. Spauskite Enter jeigu norite tęsti.");
+                Console.WriteLine(input + " nėra sveikasis integer skaičius. Spauskite Enter jeigu norite tęsti.");
                 Console.ReadLine();
                 goto beginning;
             }
@@ -40,6 +40,7 @@ namespace Homework1
         {
             input = input.Trim();
             bool qualifiesToInteger = false;
+
             for (int i = 0; i < input.Length; i++)
             {
                 char simbolis = input[i];
@@ -55,6 +56,10 @@ namespace Homework1
                 {
                     qualifiesToInteger = false;
                 }
+            }
+            if (Convert.ToDouble(input) > int.MaxValue)
+            {
+                qualifiesToInteger = false;
             }
             return qualifiesToInteger;
         }
