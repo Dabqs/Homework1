@@ -54,7 +54,7 @@ namespace Homework1
                 }
                 else
                 {
-                    qualifiesToInteger = false;
+                    return false;
                 }
             }
             if (Convert.ToDouble(input) > int.MaxValue)
