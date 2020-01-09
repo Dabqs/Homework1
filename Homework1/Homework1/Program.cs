@@ -10,24 +10,27 @@ namespace Homework1
     {
         static void Main(string[] args)
         {
-            int intervalExtreme = 999999999;
+            int maxNumber = 999999999;
+            int minNumber = -999999999;
+
         beginning:
             Console.Clear();
             Console.Write("Įveskite sveikąjį integer skaičių: ");
             string input = Console.ReadLine();
 
-            if (!IsInteger(input))
+            if (!IsNummeric(input) || !IsInteger(input))
             {
                 Console.WriteLine(input + " nėra sveikasis integer skaičius. Spauskite Enter jeigu norite tęsti.");
                 Console.ReadLine();
                 goto beginning;
             }
 
+
             int number = Convert.ToInt32(input);
 
-            if (!CheckIfNumberIsInRange(intervalExtreme, number))
+            if (!CheckIfNumberIsInRange(maxNumber,minNumber, number))
             {
-                Console.WriteLine($"Skaicius {input} nėra intervale [-{intervalExtreme};{intervalExtreme}]. Spauskite Enter jeigu norite tęsti.");
+                Console.WriteLine($"Skaicius {input} nėra intervale [{minNumber};{maxNumber}]. Spauskite Enter jeigu norite tęsti.");
                 Console.ReadLine();
                 goto beginning;
             }
@@ -37,6 +40,19 @@ namespace Homework1
             Console.WriteLine(answer);
         }
         static bool IsInteger(string input)
+        {
+            try
+            {
+                Int32.Parse(input);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }   
+        }
+        static bool IsNummeric(string input)
         {
             input = input.Trim();
             bool qualifiesToInteger = false;
@@ -57,20 +73,19 @@ namespace Homework1
                     return false;
                 }
             }
-            if (Convert.ToDouble(input) > int.MaxValue)
-            {
-                qualifiesToInteger = false;
-            }
+            
             return qualifiesToInteger;
         }
-        static bool CheckIfNumberIsInRange(int intervalExtreme, int number)
+        static bool CheckIfNumberIsInRange(int maxNumber,int minNumber, int number)
         {
-            bool digitIsInInterval = false;
-            if (Math.Abs(number) <= intervalExtreme)
+            if (number <= maxNumber && number >= minNumber)
             {
-                digitIsInInterval = true;
+                return true;
             }
-            return digitIsInInterval;
+            else
+            {
+                return false;
+            }
         }
         static string ChangeNumberToText(int number)
         {
